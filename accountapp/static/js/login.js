@@ -10,6 +10,9 @@ function send_input() {
             document.getElementById('alert_box').innerHTML
                 = "<div class='btn btn-primary rounded-pill px-5'>로그인 성공!</div>";
 
+            // Token 수령 후 쿠키 생성
+            document.cookie = "drf_token=Token " + response.data['token'];
+
             window.location.href = '/accounts/hello_world_template/';
 
         })
