@@ -4,13 +4,12 @@
 {% block content %}
 
 
-  <div class="my-5" style="max-width: 500px; margin: auto;">
+  <div class="my-5" style="max-width: 500px; margin: auto">
     <div class="my-5">
       <h2>Create Profile</h2>
     </div>
 
     <div id="alert_box">
-
     </div>
 
     <!--  NICKNAME  -->
@@ -18,24 +17,22 @@
       <label for="nickname" class="form-label">nickname</label>
       <input id="nickname" type="text" class="form-control">
     </div>
-
     <!--  IMAGE  -->
     <div class="mb-3">
       <label for="image" class="form-label">image</label>
-      <input id="image" type="image" class="form-control">
+      <input id="image" type="file" accept="image/*" class="form-control">
     </div>
-
     <!--  MESSAGE  -->
     <div class="mb-3">
       <label for="message" class="form-label">message</label>
       <input id="message" type="text" class="form-control">
     </div>
 
-    <!--  PASSWORD CONFIRM -->
     <input type="submit" class="btn btn-dark rounded-pill px-5" onclick="send_input()">
 
   </div>
 
 <script src="{% static 'profileapp/js/create.js' %}"></script>
+
 
 {% endblock %}
