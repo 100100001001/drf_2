@@ -1,60 +1,41 @@
-function initialize(pk) {
-    axios.get('/profiles/' + pk )
-        .then(function (response) {
-            // handle success
-            console.log(response);
+{% extends 'base.html' %}
+{% load static %}
 
-            document.getElementById('nickname').value = response.data['nickname'];
-            document.getElementById('message').value = response.data['message'];
+{% block content %}
 
-            // 이미지도 가져와야 함
 
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-}
+  <div class="my-5" style="max-width: 500px; margin: auto">
+    <div class="my-5">
+      <h2>Update Profile</h2>
+    </div>
 
-function update_profile(pk) {
-    var form = new FromData()
-    form.append('nickname', document.getElementById('nickname').value)
-    form.append('message', document.getElementById('message').value)
-    form.append('image', document.getElementById('image').files[0])
+    <div id="alert_box">
+    </div>
 
-    axios({
-        method: 'patch',
-        url: '/profiles/' + pk,
-        data: form,
-        headers: {
-            Authorization: decodeURIComponent(getCookie('drf_token'))
-        }
-    })
-        .then(function (response) {
-            // handle success
-            console.log(response);
+    <!--  NICKNAME  -->
+    <div class="mb-3">
+      <label for="nickname" class="form-label">nickname</label>
+      <input id="nickname" type="text" class="form-control">
+    </div>
+    <!--  IMAGE  -->
+    <div class="mb-3">
+      <label for="image" class="form-label">image</label>
+      <input id="image" type="file" accept="image/*" class="form-control">
+    </div>
+    <!--  MESSAGE  -->
+    <div class="mb-3">
+      <label for="message" class="form-label">message</label>
+      <input id="message" type="text" class="form-control">
+    </div>
 
-            window.location.href = '/accounts/retrieve_template/' + response.data['owner']['id'];
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
+    <input type="submit" onclick="update_profile('{{ view.kwargs.pk }}');"
+           class="btn btn-dark rounded-pill px-5">
 
-            if(error.response.status === 401) {
-                document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>인증 정보가 없어요!</div>"
-            } else if(error.response.status === 403) {
-                document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>권한이 없어요!</div>"
-            } else {
-                document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>업데이트 실패!</div>"
-            }
-         })
-        .then(function () {
-            // always executed
-        });
-}
+  </div>
+
+<script src="{% static 'profileapp/js/update.js' %}"></script>
+<script>
+  initialize("{{ view.kwargs.pk }}");
+</script>
+
+{% endblock %}
