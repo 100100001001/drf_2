@@ -7,6 +7,7 @@ from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from profileapp.models import Profile
+from profileapp.permissions import IsProfileOwner
 from profileapp.serializers import ProfileSerializer
 
 
@@ -23,6 +24,10 @@ class ProfileCreateAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class ProfileUpdateTemplateView(TemplateView):
+    template_name = 'profileapp/update.html'
 
 
 class ProfileUpdateAPIView(UpdateAPIView):
