@@ -13,7 +13,7 @@ var check = getCookie('drf_token');
 if (check !== undefined) {
     document.getElementById('signup_button').innerHTML =
         "<a href=\"/accounts/retrieve_template/\">\n" +
-        "                My Page\n" +
+        "                MyPage\n" +
         "            </a>";
     document.getElementById('login_button').innerHTML =
         "<a href=\"/accounts/logout_template/\">\n" +
