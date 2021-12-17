@@ -1,9 +1,3 @@
-function getCookie(name) {
-  let matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
 
 function send_input() {
 
@@ -25,15 +19,13 @@ function send_input() {
             console.log(response);
 
             // 완성된 이후 해당 게시글 페이지로 돌아가기
-//            window.location.href = '/articles/retrieve_template/' + response.data['id'];
-            document.getElementById('alert_box').innerHTML
-                = "<div class='btn btn-primary rounded-pill px-5'>게시글 작성 성공!</div>"
+            window.location.href = '/articles/retrieve_template/' + response.data['id'];
         })
         .catch(function (error) {
             // 실패했을 경우
             console.log(error);
 
             document.getElementById('alert_box').innerHTML
-                = "<div class='btn btn-danger rounded-pill px-5'>게시글 작성 실패!</div>"
+                = "<div class='btn btn-danger rounded-pill px-5'>게시글 작성에 실패했습니다</div>"
         });
 }

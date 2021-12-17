@@ -8,7 +8,7 @@ function getCookie(name) {
 function initialize(pk) {
     axios({
         method: 'get',
-        url: '/profiles/' + pk,
+        url: '/articles/' + pk,
         headers: {
             Authorization: decodeURIComponent(getCookie('drf_token'))
         }
@@ -17,8 +17,8 @@ function initialize(pk) {
             // handle success
             console.log(response);
 
-            document.getElementById('nickname').value = response.data['nickname'];
-            document.getElementById('message').value = response.data['message'];
+            document.getElementById('title').value = response.data['title'];
+            document.getElementById('content').value = response.data['content'];
 
         })
         .catch(function (error) {
@@ -30,15 +30,15 @@ function initialize(pk) {
         });
 }
 
-function update_profile(pk) {
+function update_article(pk) {
     var form = new FormData()
-    form.append('nickname', document.getElementById('nickname').value)
-    form.append('message', document.getElementById('message').value)
+    form.append('title', document.getElementById('title').value)
+    form.append('content', document.getElementById('content').value)
     form.append('image', document.getElementById('image').files[0])
 
     axios({
         method: 'patch',
-        url: '/profiles/' + pk,
+        url: '/articles/' + pk,
         data: form,
         headers: {
             Authorization: decodeURIComponent(getCookie('drf_token')),
@@ -48,7 +48,7 @@ function update_profile(pk) {
             // handle success
             console.log(response);
 
-            window.location.href = '/accounts/retrieve_template/' + response.data['owner_id'];
+            window.location.href = '/articles/retrieve_template/' + response.data['id'];
         })
         .catch(function (error) {
             // handle error
@@ -56,13 +56,13 @@ function update_profile(pk) {
 
             if (error.response.status === 401) {
                 document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>인증 정보가 없습니다.</div>"
+                    = "<div class='btn btn-danger rounded-pill px-5'>인증 정보 없어요!</div>"
             } else if (error.response.status === 403) {
                 document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>권한이 없습니다.</div>"
+                    = "<div class='btn btn-danger rounded-pill px-5'>권한 없어요!</div>"
             } else {
                 document.getElementById('alert_box').innerHTML
-                    = "<div class='btn btn-danger rounded-pill px-5'>업데이트에 실패했습니다.</div>"
+                    = "<div class='btn btn-danger rounded-pill px-5'>업데이트 실패!</div>"
             }
 
         })
