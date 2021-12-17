@@ -8,13 +8,13 @@ function getCookie(name) {
 function send_input() {
 
     var form = new FormData();
-    form.append('nickname', document.getElementById('nickname').value);
-    form.append('message', document.getElementById('message').value);
+    form.append('title', document.getElementById('title').value);
+    form.append('content', document.getElementById('content').value);
     form.append('image', document.getElementById('image').files[0]);
 
     axios({
         method: 'post',
-        url: '/profiles/',
+        url: '/articles/',
         data: form,
         headers: {
             Authorization: decodeURIComponent(getCookie('drf_token'))
@@ -24,15 +24,16 @@ function send_input() {
             // 성공했을 경우
             console.log(response);
 
-            // 완성된 이후 해당 유저의 detail 페이지로 리다이렉트
-            window.location.href = '/accounts/retrieve_template/' + response.data['owner_id'];
-
+            // 완성된 이후 해당 게시글 페이지로 돌아가기
+//            window.location.href = '/articles/retrieve_template/' + response.data['id'];
+            document.getElementById('alert_box').innerHTML
+                = "<div class='btn btn-primary rounded-pill px-5'>게시글 작성 성공!</div>"
         })
         .catch(function (error) {
             // 실패했을 경우
             console.log(error);
 
             document.getElementById('alert_box').innerHTML
-                = "<div class='btn btn-danger rounded-pill px-5'>프로필 생성 실패!</div>"
+                = "<div class='btn btn-danger rounded-pill px-5'>게시글 작성 실패!</div>"
         });
 }
