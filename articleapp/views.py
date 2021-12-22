@@ -17,8 +17,8 @@ class ArticleCreateTemplateView(TemplateView):
     template_name = 'articleapp/create.html'
 
 
-class MagicGridTemplateView(TemplateView):
-    template_name = 'articleapp/magic_grid.html'
+class ArticleListTemplateView(TemplateView):
+    template_name = 'articleapp/list.html'
 
 
 class ArticleListAPIView(ListAPIView):
@@ -62,9 +62,9 @@ class ArticleRUDAPIView(RetrieveUpdateDestroyAPIView):
 
     def get(self, request, *args, **kwargs):
         target_article = self.get_object()
-        serializers = self.get_serializer(target_article)
+        serializer = self.get_serializer(target_article)
 
-        result_dict = dict(serializers.data)
+        result_dict = dict(serializer.data)
 
         if request.user == target_article.writer:
             result_dict['is_page_owner'] = 'True'
