@@ -18,7 +18,3 @@ def generate_thumbnail(input_image):
     output.seek(0)
 
     return output
-
-
-def generate_thumbnail_celery_lag(image):
-    return None
