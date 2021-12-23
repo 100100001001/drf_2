@@ -1,9 +1,13 @@
+import time
 from io import BytesIO
 
 from PIL import Image
+from celery import shared_task
 
 
-def generate_thumbnail(input_image):
+@shared_task
+def generate_thumbnail_celery_lag(input_image):
+    time.sleep(10)
     img = Image.open(input_image)
 
     width, height = img.size
@@ -18,7 +22,3 @@ def generate_thumbnail(input_image):
     output.seek(0)
 
     return output
-
-
-def generate_thumbnail_celery_lag(image):
-    return None
