@@ -89,6 +89,7 @@ class AccountRUDAPIView(RetrieveUpdateDestroyAPIView):
         return Response(result_dict)
 
 
+
 class AccountTokenRetrieveAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     http_method_names = ['get']
